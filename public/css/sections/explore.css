@@ -1,0 +1,861 @@
+/* ========================================
+   EXPLORE PROPERTIES SECTION
+   Parallax image gallery with fixed text
+   ======================================== */
+
+.explore-section {
+    position: relative;
+    min-height: 500vh;
+    background: #fff;
+}
+
+.explore-container {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Text-Only Intro Area - Text moves through and behind images */
+.explore-intro {
+    position: relative;
+    width: 100%;
+    min-height: 50vh;
+    /* Tall section for full scroll animation */
+    background: #fff;
+}
+
+.explore-intro-content {
+    position: fixed;
+    top: 120px;
+    left: 0;
+    width: 100%;
+    padding: 0 40px;
+    text-align: center;
+    z-index: 1;
+    /* BEHIND images which have z-index: 10+ */
+    pointer-events: none;
+    opacity: 0;
+    /* Hidden by default - JS shows when in section */
+}
+
+.explore-intro-title {
+    font-family: 'Alumni Sans', sans-serif;
+    font-size: 100px;
+    font-weight: 600;
+    color: #1a1a1a;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin: 0;
+    transition: font-size 0.1s ease-out;
+}
+
+/* Scattered images in intro section */
+.explore-intro-images {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+    /* Below the text (z-index: 1) */
+}
+
+/* Text Centered in Sticky Container */
+.explore-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    text-align: center;
+    pointer-events: none;
+    opacity: 0;
+    /* Hidden by default, JS shows when in section */
+}
+
+.explore-title {
+    font-family: 'Alumni Sans', sans-serif;
+    font-size: clamp(16px, 8vw, 120px);
+    font-weight: 600;
+    color: #1a1a1a;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.property-count {
+    font-size: 0.25em;
+    font-weight: 400;
+    color: #888;
+    vertical-align: super;
+    margin-left: 8px;
+}
+
+/* Scattered Images Container */
+.explore-images {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.explore-img {
+    position: absolute;
+    overflow: hidden;
+    border-radius: 4px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.15s ease-out;
+    will-change: transform;
+    z-index: 10;
+    /* Above the intro text (z-index: 1) */
+}
+
+
+.explore-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Small images */
+.explore-img.img-small {
+    width: 120px;
+    height: 160px;
+}
+
+/* Medium images */
+.explore-img.img-medium {
+    width: 180px;
+    height: 240px;
+}
+
+/* Big images */
+.explore-img.img-big {
+    width: 280px;
+    height: 360px;
+}
+
+/* Hover effect on images */
+.explore-img:hover {
+    z-index: 20;
+    pointer-events: auto;
+}
+
+.explore-img:hover img {
+    transform: scale(1.03);
+    transition: transform 0.3s ease;
+}
+
+/* ========================================
+   RESPONSIVE BREAKPOINTS - Progressive Image Sizing
+   ======================================== */
+
+/* 1270px - Start scaling down */
+@media (max-width: 1270px) {
+    .explore-img.img-small {
+        width: 100px;
+        height: 130px;
+    }
+
+    .explore-img.img-medium {
+        width: 150px;
+        height: 200px;
+    }
+
+    .explore-img.img-big {
+        width: 230px;
+        height: 300px;
+    }
+
+    .expand-trigger-img {
+        width: 160px;
+        height: 230px;
+    }
+}
+
+/* 870px */
+@media (max-width: 870px) {
+    .explore-img.img-small {
+        width: 85px;
+        height: 110px;
+    }
+
+    .explore-img.img-medium {
+        width: 130px;
+        height: 170px;
+    }
+
+    .explore-img.img-big {
+        width: 190px;
+        height: 250px;
+    }
+
+    .expand-trigger-img {
+        width: 145px;
+        height: 200px;
+    }
+}
+
+/* 798px */
+@media (max-width: 798px) {
+    .explore-img.img-small {
+        width: 75px;
+        height: 100px;
+    }
+
+    .explore-img.img-medium {
+        width: 115px;
+        height: 150px;
+    }
+
+    .explore-img.img-big {
+        width: 170px;
+        height: 220px;
+    }
+
+    .expand-trigger-img {
+        width: 130px;
+        height: 180px;
+    }
+}
+
+/* 694px */
+@media (max-width: 694px) {
+    .explore-img.img-small {
+        width: 65px;
+        height: 85px;
+    }
+
+    .explore-img.img-medium {
+        width: 100px;
+        height: 130px;
+    }
+
+    .explore-img.img-big {
+        width: 145px;
+        height: 190px;
+    }
+
+    .expand-trigger-img {
+        width: 115px;
+        height: 160px;
+    }
+}
+
+/* Mobile responsive - 768px */
+@media (max-width: 768px) {
+    .explore-section {
+        min-height: 500vh;
+    }
+
+    .explore-title {
+        font-size: clamp(28px, 8vw, 45px);
+    }
+}
+
+/* 420px - Small mobile */
+@media (max-width: 420px) {
+    .explore-img.img-small {
+        width: 50px;
+        height: 65px;
+    }
+
+    .explore-img.img-medium {
+        width: 75px;
+        height: 100px;
+    }
+
+    .explore-img.img-big {
+        width: 110px;
+        height: 140px;
+    }
+
+    .expand-trigger-img {
+        width: 100px;
+        height: 140px;
+    }
+
+    .explore-intro-title {
+        font-size: 60px;
+    }
+}
+
+/* ========================================
+   BOTTOM CENTER EXPANDING IMAGE
+   Starts below viewport, scrolls into view, then expands
+   ======================================== */
+
+/* Wrapper for the expanding image */
+.expand-trigger-wrapper {
+    position: absolute;
+    bottom: -300px;
+    /* Start below viewport, scrolls into view */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 50;
+    pointer-events: none;
+}
+
+/* The actual expanding image */
+.expand-trigger-img {
+    width: 180px;
+    height: 260px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.expand-trigger-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* When fully expanded */
+.expand-trigger-wrapper.expanded {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    transform: none;
+    width: 100vw;
+    height: 100vh;
+}
+
+.expand-trigger-wrapper.expanded .expand-trigger-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+}
+
+/* Full screen expand reveal section - no fade, just show */
+.expand-reveal-section {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 150;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.expand-reveal-section.visible {
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.expand-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+
+.expand-bg img {
+    width: 100%;
+    height: 120%;
+    /* Larger for parallax movement */
+    object-fit: cover;
+    object-position: center top;
+    /* Smooth parallax transition */
+    transition: transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+    transform: translateY(0);
+}
+
+/* Swipeable Content Wrapper */
+.expand-content-wrapper {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    overflow: hidden;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Individual Panels */
+.expand-panel {
+    min-width: 100%;
+    ;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 80px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.expand-panel.active {
+    opacity: 1;
+}
+
+/* Why Us Wrapper - Vertical Layout (Titles Top, Description Below) */
+.why-us-wrapper {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 80px;
+    z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s 0.3s;
+}
+
+/* Only show content when section is visible */
+.expand-reveal-section.visible .why-us-wrapper {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease, visibility 0s 0s;
+}
+
+/* Titles Container with overflow hidden for sliding */
+.why-us-titles-container {
+    overflow: hidden;
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+/* Horizontal Sliding Titles */
+.why-us-titles {
+    display: flex;
+    gap: 60px;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.why-us-title {
+    font-family: 'Alumni Sans', sans-serif;
+    font-size: clamp(36px, 6vw, 70px);
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.3);
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color 0.4s ease;
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.why-us-title.active {
+    color: #fff;
+}
+
+.why-us-title:hover:not(.active) {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Title Ascend Animation */
+.why-us-ascend-inner-title {
+    display: block;
+    transform: translateY(110%);
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.expand-reveal-section.visible .why-us-ascend-inner-title {
+    transform: translateY(0%);
+}
+
+.why-us-title:nth-child(1) .why-us-ascend-inner-title {
+    transition-delay: 0.1s;
+}
+
+.why-us-title:nth-child(2) .why-us-ascend-inner-title {
+    transition-delay: 0.2s;
+}
+
+.why-us-title:nth-child(3) .why-us-ascend-inner-title {
+    transition-delay: 0.3s;
+}
+
+/* Descriptions - Below Titles */
+.why-us-descriptions {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    min-height: 150px;
+}
+
+.why-us-desc {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    visibility: hidden;
+    /* Ensure visibility hides after transition */
+    transition: opacity 0.4s ease, visibility 0s 0.4s;
+}
+
+.why-us-desc.active {
+    opacity: 1;
+    visibility: visible;
+    /* Make visibility immediate */
+    transition: opacity 0.4s ease, visibility 0s 0s;
+}
+
+/* Wrapper for reveal animation */
+.why-us-ascend-wrapper {
+    overflow: visible;
+    /* Changed to visible as masks are on words now */
+    display: block;
+}
+
+/* Inner text container - holds words */
+.why-us-ascend-inner {
+    font-family: 'Alumni Sans', sans-serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.8;
+    margin: 0;
+    display: block;
+    /* Removed block transform - now handled by words */
+}
+
+/* Individual Word Mask */
+.why-us-word-mask {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+    /* margin-right removed - relying on natural space char from JS */
+    line-height: 1.2;
+    /* Tighter line height for masking */
+    padding-bottom: 5px;
+    /* Prevent clipping descenders */
+    margin-bottom: -5px;
+}
+
+/* Individual Word Inner */
+.why-us-word-inner {
+    display: inline-block;
+    transform: translateY(110%);
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.why-us-desc.active .why-us-word-inner {
+    transform: translateY(0%);
+    /* Delay is handled by inline style from JS */
+}
+
+.expand-description p {
+    font-family: 'Alumni Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.8;
+    margin: 0;
+}
+
+/* CTA Content */
+.expand-cta-content {
+    text-align: left;
+}
+
+.expand-cta-title {
+    font-family: 'Alumni Sans', sans-serif;
+    font-size: clamp(36px, 6vw, 60px);
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.1;
+    margin: 0 0 40px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease 0.2s;
+}
+
+.expand-reveal-section.visible .expand-panel.active .expand-cta-title {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.expand-cta-btn {
+    display: inline-block;
+    padding: 18px 50px;
+    background: #fff;
+    color: #1a1a1a;
+    font-family: 'Alumni Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.expand-reveal-section.visible .expand-panel.active .expand-cta-btn {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.4s;
+}
+
+/* Sidebar Drawer for Footer (Panel 4) */
+.footer-sidebar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 65%;
+    /* Covers ~65% of screen */
+    height: 100vh;
+    background: #fff;
+    z-index: 50;
+    /* Above text content (z-10) but below header dropdown? Header is z-100? */
+    /* Header is usually 100+, let's be careful. why-us-wrapper is z-10. */
+    transform: translateX(100%);
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0;
+    /* Content wrapper handles padding */
+    box-shadow: -20px 0 50px rgba(0, 0, 0, 0.15);
+}
+
+.footer-sidebar-content {
+    padding: 60px 80px;
+    height: 100%;
+    overflow-y: auto;
+    /* Scrollable if content too tall */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Slide in when active */
+.footer-sidebar.active {
+    transform: translateX(0%);
+}
+
+/* Adjust Main Content when Drawer is Open */
+.expand-reveal-section.drawer-open .why-us-wrapper {
+    transform: translateX(-20%);
+    opacity: 0.3;
+    pointer-events: none;
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Hide navigation dots or hint when drawer is open? */
+.expand-reveal-section.drawer-open .swipe-hint,
+.expand-reveal-section.drawer-open .expand-nav {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+/* Ensure footer specific styles work here */
+.footer-sidebar .footer-upper {
+    border-bottom: none;
+    /* Simplify inside sidebar */
+    padding-bottom: 40px;
+}
+
+.footer-sidebar .footer-middle {
+    margin-top: 20px;
+}
+
+/* Panel Indicator */
+.panel-indicator {
+    position: absolute;
+    bottom: 60px;
+    left: 80px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    opacity: 0;
+    transition: opacity 0.5s ease 0.5s;
+}
+
+.expand-reveal-section.visible .expand-panel.active .panel-indicator {
+    opacity: 1;
+}
+
+.indicator-num {
+    font-family: 'Alumni Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.indicator-line {
+    width: 100px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.indicator-label {
+    font-family: 'Alumni Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 2px;
+}
+
+/* Navigation Dots */
+.expand-nav {
+    position: absolute;
+    bottom: 60px;
+    right: 80px;
+    display: flex;
+    gap: 12px;
+    z-index: 10;
+}
+
+.expand-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.expand-dot:hover {
+    border-color: #fff;
+}
+
+.expand-dot.active {
+    background: #fff;
+    border-color: #fff;
+}
+
+/* Swipe Hint */
+.swipe-hint {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.6);
+    font-family: 'Alumni Sans', sans-serif;
+    font-size: 14px;
+    animation: swipeHint 2s ease-in-out infinite;
+}
+
+.swipe-hint svg {
+    width: 18px;
+    height: 18px;
+}
+
+@keyframes swipeHint {
+
+    0%,
+    100% {
+        transform: translateX(-50%);
+    }
+
+    50% {
+        transform: translateX(-40%);
+    }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .expand-panel {
+        padding: 40px 30px;
+    }
+
+    .brand-word {
+        font-size: clamp(32px, 10vw, 50px);
+    }
+
+    .panel-indicator {
+        left: 30px;
+        bottom: 100px;
+    }
+
+    .expand-nav {
+        right: 30px;
+        bottom: 100px;
+    }
+
+    .swipe-hint {
+        bottom: 40px;
+    }
+
+    .expand-cta-btn {
+        padding: 14px 35px;
+        font-size: 14px;
+    }
+}
+
+/* Why Us Section - Mobile Responsive */
+@media (max-width: 768px) {
+    .why-us-wrapper {
+        flex-direction: column;
+        padding: 60px 30px;
+        justify-content: center;
+    }
+
+    .why-us-left {
+        width: 100%;
+        margin-bottom: 40px;
+    }
+
+    .why-us-titles {
+        gap: 30px;
+    }
+
+    .why-us-title {
+        font-size: clamp(24px, 8vw, 40px);
+    }
+
+    .why-us-right {
+        flex: none;
+        width: 100%;
+        padding-left: 0;
+    }
+
+    .why-us-descriptions {
+        min-height: 120px;
+    }
+
+    .why-us-desc .ascend-text {
+        font-size: 14px;
+    }
+}
+
+/* ========================================
+   EXPAND TRIGGER IMAGE - Responsive Sizing
+   (Must be at end to override base styles)
+   ======================================== */
+
+@media (max-width: 1270px) {
+    .expand-trigger-img {
+        width: 160px;
+        height: 230px;
+    }
+}
+
+@media (max-width: 870px) {
+    .expand-trigger-img {
+        width: 145px;
+        height: 200px;
+    }
+}
+
+@media (max-width: 798px) {
+    .expand-trigger-img {
+        width: 130px;
+        height: 180px;
+    }
+}
+
+@media (max-width: 694px) {
+    .expand-trigger-img {
+        width: 115px;
+        height: 160px;
+    }
+}
+
+@media (max-width: 420px) {
+    .expand-trigger-img {
+        width: 100px;
+        height: 140px;
+    }
+}

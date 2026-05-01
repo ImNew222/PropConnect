@@ -1,0 +1,456 @@
+/* ========================================
+   FILTER PANEL STYLES
+   Reusable filter component for property filtering
+   ======================================== */
+
+/* Wrapper for toolbar + filter panel positioning */
+.filter-toolbar {
+    position: relative;
+}
+
+.filter-panel {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 25px;
+    max-width: 320px;
+    margin-bottom: 0;
+
+    font-family: 'Alumni Sans', sans-serif;
+    /* Hidden by default */
+    max-height: 0;
+    padding: 0 25px;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+    /* OVERLAY: Position absolutely over content */
+    position: absolute;
+    z-index: 100;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    left: 0;
+    top: calc(100% + 20px);
+    visibility: hidden;
+}
+
+.filter-panel.open {
+    max-height: 1000px;
+    padding: 25px;
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Filter button active state */
+.filter-btn.active {
+    background: #2B67F6;
+    color: #fff;
+    border-color: #2B67F6;
+}
+
+/* Buy/Rent Toggle */
+.filter-header {
+    margin-bottom: 20px;
+}
+
+.buy-rent-toggle {
+    display: flex;
+    background: #f5f5f5;
+    border-radius: 8px;
+    padding: 4px;
+}
+
+.buy-rent-toggle .toggle-btn {
+    flex: 1;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    background: transparent;
+    color: #777;
+    transition: all 0.2s ease;
+}
+
+.buy-rent-toggle .toggle-btn.active {
+    background: #2B67F6;
+    color: #fff;
+}
+
+/* Filter Meta (Results + Map Toggle) */
+.filter-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.results-count {
+    font-size: 16px;
+    color: #999;
+}
+
+.map-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    color: #555;
+    cursor: pointer;
+}
+
+.map-toggle input {
+    display: none;
+}
+
+.toggle-slider {
+    width: 40px;
+    height: 22px;
+    background: #ddd;
+    border-radius: 11px;
+    position: relative;
+    transition: background 0.2s ease;
+}
+
+.toggle-slider::after {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background: #fff;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.2s ease;
+}
+
+.map-toggle input:checked+.toggle-slider {
+    background: #2B67F6;
+}
+
+.map-toggle input:checked+.toggle-slider::after {
+    transform: translateX(18px);
+}
+
+/* Filter Groups */
+.filter-group {
+    margin-bottom: 25px;
+}
+
+.filter-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #2B67F6;
+    margin-bottom: 12px;
+}
+
+/* Checkbox Group */
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.checkbox-group.horizontal {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    color: #555;
+    cursor: pointer;
+}
+
+.checkbox-item input {
+    display: none;
+}
+
+.checkmark {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.checkbox-item input:checked+.checkmark {
+    background: #2B67F6;
+    border-color: #2B67F6;
+}
+
+.checkbox-item input:checked+.checkmark::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 2px;
+    width: 4px;
+    height: 8px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* Price Slider */
+.price-slider-container {
+    margin-bottom: 15px;
+}
+
+.price-slider {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: #eee;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.price-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #2B67F6;
+    cursor: pointer;
+}
+
+.price-slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #2B67F6;
+    cursor: pointer;
+    border: none;
+}
+
+.price-inputs {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.price-input {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 12px;
+}
+
+.price-input .currency {
+    color: #999;
+    margin-right: 5px;
+}
+
+.price-input input {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 16px;
+    font-family: inherit;
+}
+
+.price-separator {
+    color: #ccc;
+}
+
+/* Button Group (Bathroom, View) */
+.button-group {
+    display: flex;
+    gap: 8px;
+}
+
+.option-btn {
+    padding: 10px 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    font-size: 15px;
+    font-weight: 500;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.option-btn:hover {
+    border-color: #999;
+}
+
+.option-btn.active {
+    background: #2B67F6;
+    border-color: #2B67F6;
+    color: #fff;
+}
+
+/* ========================================
+   FILTER PANEL RESPONSIVE
+   ======================================== */
+
+@media (max-width: 992px) {
+    .filter-panel {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .filter-panel {
+        padding: 20px;
+    }
+
+    .button-group {
+        flex-wrap: wrap;
+    }
+
+    .option-btn {
+        padding: 8px 12px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .filter-panel {
+        padding: 15px;
+    }
+
+    .checkbox-group.horizontal {
+        gap: 10px;
+    }
+
+    .price-inputs {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .price-input {
+        width: 100%;
+    }
+
+    .price-separator {
+        display: none;
+    }
+
+    .buy-rent-toggle .toggle-btn {
+        padding: 8px 15px;
+        font-size: 15px;
+    }
+}
+
+/* ========================================
+   NEW FILTER STYLES
+   ======================================== */
+
+/* Filter Title */
+.filter-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.filter-title h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #222;
+    margin: 0;
+}
+
+.rent-badge {
+    background: #2B67F6;
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Bedroom/Bathroom Option Buttons */
+.bedroom-options {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.bedroom-btn,
+.bathroom-btn {
+    padding: 10px 18px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    font-size: 15px;
+    font-weight: 500;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 48px;
+    text-align: center;
+}
+
+.bedroom-btn:hover,
+.bathroom-btn:hover {
+    border-color: #999;
+}
+
+.bedroom-btn.active,
+.bathroom-btn.active {
+    background: #2B67F6;
+    border-color: #2B67F6;
+    color: #fff;
+}
+
+/* Filter Action Buttons */
+.filter-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.clear-filters-btn {
+    flex: 1;
+    padding: 12px 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.clear-filters-btn:hover {
+    border-color: #999;
+    background: #f5f5f5;
+}
+
+.apply-filters-btn {
+    flex: 2;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #2B67F6;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.apply-filters-btn:hover {
+    background: #1a56db;
+}
+
+/* Loading state */
+.apply-filters-btn.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}

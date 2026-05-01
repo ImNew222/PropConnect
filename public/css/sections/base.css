@@ -1,0 +1,21 @@
+/* ========================================
+   BASE STYLES
+   Global reset and common styles
+   ======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fff;
+    color: #333;
+}
+
+/* Hide scrollbar during preload */
+body.loading {
+    overflow: hidden;
+}

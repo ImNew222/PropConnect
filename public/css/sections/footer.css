@@ -1,0 +1,304 @@
+/* ========================================
+   SECTION 6: FOOTER
+   Based on Telha Clarke reference design
+   ======================================== */
+
+.site-footer {
+    position: relative;
+    z-index: 200;
+    /* Ensure footer slides OVER the fixed Section 5 */
+    background: #fff;
+    padding: 80px 80px 40px;
+    font-family: 'Alumni Sans', sans-serif;
+}
+
+/* Hide footer when Section 5 is in interactive (visible) mode */
+.expand-reveal-section.visible~.site-footer,
+body:has(.expand-reveal-section.visible) .site-footer {
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Override: Force visibility when we have exited parallax mode */
+body.parallax-exited .site-footer {
+    visibility: visible !important;
+    pointer-events: auto !important;
+}
+
+/* Upper Footer - Three Column Layout */
+.footer-upper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 60px;
+    border-bottom: 1px solid #eee;
+}
+
+/* CTA Section */
+.footer-cta {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer-cta-text {
+    font-size: 28px;
+    font-weight: 300;
+    color: #ccc;
+    margin: 0;
+}
+
+.footer-cta-link {
+    font-size: 28px;
+    font-weight: 600;
+    color: #0a0a0a;
+    text-decoration: none;
+    border-bottom: 2px solid #0a0a0a;
+    display: inline-block;
+    width: fit-content;
+    transition: opacity 0.3s ease;
+}
+
+.footer-cta-link:hover {
+    opacity: 0.6;
+}
+
+/* Navigation Links */
+.footer-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer-nav a {
+    font-size: 16px;
+    color: #0a0a0a;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+.footer-nav a:hover {
+    opacity: 0.6;
+}
+
+/* Contact Info */
+.footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.contact-item {
+    display: flex;
+    gap: 20px;
+}
+
+.contact-label {
+    font-size: 14px;
+    color: #888;
+    min-width: 20px;
+}
+
+.contact-value {
+    font-size: 14px;
+    color: #0a0a0a;
+    line-height: 1.5;
+}
+
+/* Middle Footer */
+.footer-middle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 0;
+}
+
+/* Newsletter */
+.footer-newsletter {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.footer-newsletter span {
+    font-size: 14px;
+    color: #0a0a0a;
+}
+
+.newsletter-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.newsletter-form input {
+    font-family: 'Alumni Sans', sans-serif;
+    font-size: 14px;
+    padding: 8px 0;
+    border: none;
+    border-bottom: 1px solid #0a0a0a;
+    background: transparent;
+    width: 180px;
+    outline: none;
+}
+
+.newsletter-form input::placeholder {
+    color: #888;
+}
+
+.newsletter-form button {
+    font-size: 18px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    transition: transform 0.3s ease;
+}
+
+.newsletter-form button:hover {
+    transform: translateX(5px);
+}
+
+/* Back to Top */
+.back-to-top {
+    font-size: 14px;
+    color: #888;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.back-to-top:hover {
+    color: #0a0a0a;
+}
+
+/* Social Links */
+.footer-social {
+    display: flex;
+    gap: 20px;
+}
+
+.footer-social a {
+    font-size: 14px;
+    color: #0a0a0a;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+.footer-social a:hover {
+    opacity: 0.6;
+}
+
+/* Large Logo Section */
+.footer-logo-section {
+    background: #0a0a0a;
+    margin: 0 -80px;
+    padding: 60px 80px;
+    overflow: hidden;
+}
+
+.footer-large-logo {
+    font-family: 'Alumni Sans', sans-serif;
+    font-size: clamp(80px, 15vw, 200px);
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.15);
+    margin: 0;
+    text-align: center;
+    letter-spacing: 0.05em;
+    line-height: 1;
+}
+
+/* Bottom Footer */
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0 0;
+    margin-top: 20px;
+}
+
+.footer-copyright,
+.footer-credit {
+    font-size: 12px;
+    color: #888;
+}
+
+.footer-bottom a {
+    font-size: 12px;
+    color: #0a0a0a;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+.footer-bottom a:hover {
+    opacity: 0.6;
+}
+
+/* ========================================
+   FOOTER - Mobile Responsive
+   ======================================== */
+
+@media (max-width: 1024px) {
+    .site-footer {
+        padding: 60px 40px 30px;
+    }
+
+    .footer-upper {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+    }
+
+    .footer-contact {
+        grid-column: span 2;
+    }
+
+    .footer-logo-section {
+        margin: 0 -40px;
+        padding: 50px 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .site-footer {
+        padding: 50px 30px 20px;
+    }
+
+    .footer-upper {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .footer-contact {
+        grid-column: span 1;
+    }
+
+    .footer-cta-text,
+    .footer-cta-link {
+        font-size: 22px;
+    }
+
+    .footer-middle {
+        flex-direction: column;
+        gap: 30px;
+        align-items: flex-start;
+    }
+
+    .footer-newsletter {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .footer-logo-section {
+        margin: 0 -30px;
+        padding: 40px 30px;
+    }
+
+    .footer-large-logo {
+        font-size: clamp(50px, 18vw, 100px);
+    }
+
+    .footer-bottom {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+}

@@ -1,0 +1,384 @@
+/* ========================================
+   SCROLL SECTION (Sticky Image + Content)
+   ======================================== */
+
+.scroll-section {
+    background: #f8f8f8;
+    padding: 80px 5%;
+}
+
+.scroll-header {
+    max-width: 1200px;
+    margin: 0 auto 60px;
+}
+
+.scroll-label {
+    font-size: 18px;
+    font-weight: 600;
+    color: #666;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.scroll-title {
+    font-family: 'Alumni Sans', sans-serif;
+    font-size: clamp(40px, 6vw, 80px);
+    font-weight: 500;
+    line-height: 1.1;
+    color: #1a1a1a;
+}
+
+.scroll-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 60px;
+}
+
+/* Sticky Image Side */
+.scroll-image-wrapper {
+    flex: 1;
+    position: sticky;
+    top: 100px;
+    height: fit-content;
+    align-self: flex-start;
+}
+
+.scroll-image {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    background: #ddd;
+}
+
+.scroll-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 1;
+    clip-path: inset(40% 40% 40% 40% round 8px);
+    z-index: 1;
+    transition: clip-path 0.8s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s;
+}
+
+/* Background image (previous active) */
+.scroll-img.bg-image {
+    clip-path: inset(0% 0% 0% 0%);
+    z-index: 2;
+}
+
+/* Active image - expands from cube to full */
+.scroll-img.active {
+    clip-path: inset(0% 0% 0% 0%);
+    z-index: 3;
+}
+
+/* Scrollable Content Side */
+.scroll-content {
+    flex: 1;
+    position: relative;
+    min-height: 200px;
+}
+
+/* Horizontal Progress Bar */
+.scroll-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: #ddd;
+}
+
+.scroll-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: #1a1a1a;
+    transition: width 0.4s ease;
+}
+
+.scroll-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    gap: 30px;
+    padding: 40px 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease, visibility 0s 0.4s;
+}
+
+.scroll-item.active {
+    position: relative;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: opacity 0.4s ease, transform 0.4s ease, visibility 0s 0s;
+}
+
+.item-number {
+    font-size: 14px;
+    font-weight: 600;
+    color: #888;
+    min-width: 30px;
+    overflow: hidden;
+}
+
+/* Ascend animation for item content */
+.item-content h3 {
+    font-family: 'Alumni Sans', sans-serif;
+    font-size: 30px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+.item-content h3 span {
+    display: inline-block;
+    transform: translateY(100%);
+}
+
+.item-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.item-content li {
+    position: relative;
+    padding-left: 20px;
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 8px;
+    line-height: 1.5;
+    overflow: hidden;
+}
+
+.item-content li span {
+    display: inline-block;
+    transform: translateY(100%);
+}
+
+.item-content li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #888;
+}
+
+/* ========================================
+   SECTION 1: Find rental homes - Quick & Snappy
+   ======================================== */
+.scroll-item[data-index="0"] .item-content h3 span {
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.scroll-item[data-index="0"].active .item-content h3 span {
+    transform: translateY(0);
+}
+
+.scroll-item[data-index="0"] .item-content li span {
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.scroll-item[data-index="0"].active .item-content li:nth-child(1) span {
+    transform: translateY(0);
+    transition-delay: 0.08s;
+}
+
+.scroll-item[data-index="0"].active .item-content li:nth-child(2) span {
+    transform: translateY(0);
+    transition-delay: 0.14s;
+}
+
+.scroll-item[data-index="0"].active .item-content li:nth-child(3) span {
+    transform: translateY(0);
+    transition-delay: 0.2s;
+}
+
+/* ========================================
+   SECTION 2: Connect with landlords - Smooth Wave
+   ======================================== */
+.scroll-item[data-index="1"] .item-content h3 span {
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.scroll-item[data-index="1"].active .item-content h3 span {
+    transform: translateY(0);
+    transition-delay: 0.1s;
+}
+
+.scroll-item[data-index="1"] .item-content li span {
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.scroll-item[data-index="1"].active .item-content li:nth-child(1) span {
+    transform: translateY(0);
+    transition-delay: 0.2s;
+}
+
+.scroll-item[data-index="1"].active .item-content li:nth-child(2) span {
+    transform: translateY(0);
+    transition-delay: 0.3s;
+}
+
+.scroll-item[data-index="1"].active .item-content li:nth-child(3) span {
+    transform: translateY(0);
+    transition-delay: 0.4s;
+}
+
+/* ========================================
+   SECTION 3: Explore neighborhoods - Elegant & Slow
+   ======================================== */
+.scroll-item[data-index="2"] .item-content h3 span {
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-item[data-index="2"].active .item-content h3 span {
+    transform: translateY(0);
+}
+
+.scroll-item[data-index="2"] .item-content li span {
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-item[data-index="2"].active .item-content li:nth-child(1) span {
+    transform: translateY(0);
+    transition-delay: 0.15s;
+}
+
+.scroll-item[data-index="2"].active .item-content li:nth-child(2) span {
+    transform: translateY(0);
+    transition-delay: 0.25s;
+}
+
+.scroll-item[data-index="2"].active .item-content li:nth-child(3) span {
+    transform: translateY(0);
+    transition-delay: 0.35s;
+}
+
+/* ========================================
+   SECTION 4: Become a landlord - Fast Cascade
+   ======================================== */
+.scroll-item[data-index="3"] .item-content h3 span {
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.scroll-item[data-index="3"].active .item-content h3 span {
+    transform: translateY(0);
+}
+
+.scroll-item[data-index="3"] .item-content li span {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.scroll-item[data-index="3"].active .item-content li:nth-child(1) span {
+    transform: translateY(0);
+    transition-delay: 0.05s;
+}
+
+.scroll-item[data-index="3"].active .item-content li:nth-child(2) span {
+    transform: translateY(0);
+    transition-delay: 0.1s;
+}
+
+.scroll-item[data-index="3"].active .item-content li:nth-child(3) span {
+    transform: translateY(0);
+    transition-delay: 0.15s;
+}
+
+/* ========================================
+   RESPONSIVE - Image Sizing
+   ======================================== */
+
+/* Desktop - Starting size */
+@media (max-width: 1270px) {
+    .scroll-image {
+        max-width: 600px;
+        aspect-ratio: auto;
+        height: auto;
+    }
+}
+
+/* Medium Desktop */
+@media (max-width: 870px) {
+    .scroll-image {
+        max-width: 500px;
+    }
+}
+
+/* Tablet */
+@media (max-width: 798px) {
+    .scroll-image {
+        max-width: 450px;
+    }
+}
+
+/* Small Tablet */
+@media (max-width: 694px) {
+    .scroll-image {
+        max-width: 400px;
+    }
+}
+
+/* Large Mobile */
+@media (max-width: 420px) {
+    .scroll-image {
+        max-width: 390px;
+        aspect-ratio: 1/1;
+    }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .scroll-section {
+        padding: 50px 5%;
+    }
+
+    .scroll-container {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .scroll-image-wrapper {
+        position: relative;
+        top: 0;
+    }
+
+    .scroll-image {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .scroll-item {
+        padding: 25px 0;
+        gap: 20px;
+    }
+
+    .item-content h3 {
+        font-size: 22px;
+    }
+}
+
+/* Small Mobile - 390x390 */
+@media (max-width: 420px) {
+    .scroll-image {
+        width: 100%;
+        max-width: 390px;
+        aspect-ratio: 1/1;
+        margin: 0 auto;
+    }
+}

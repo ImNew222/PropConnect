@@ -1,0 +1,499 @@
+/* ========================================
+   PROPERTY DETAIL MAP STYLES
+   Interactive map with directions
+   ======================================== */
+
+/* Map Container */
+.property-detail-map {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #f0f0f0;
+}
+
+.property-detail-map .mapboxgl-map {
+    border-radius: 16px;
+}
+
+/* Property Marker */
+.property-marker {
+    cursor: pointer;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+/* User Location Marker */
+.user-marker {
+    position: relative;
+    width: 20px;
+    height: 20px;
+}
+
+.user-marker-dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 14px;
+    height: 14px;
+    background: #3b82f6;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(59, 130, 246, 0.5);
+}
+
+.user-marker-pulse {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    background: rgba(59, 130, 246, 0.2);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 0;
+    }
+}
+
+/* Map Controls Overlay */
+.map-controls-overlay {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 10;
+}
+
+/* Style Toggle Buttons */
+.map-style-toggle {
+    display: flex;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+}
+
+.map-style-btn {
+    padding: 8px 12px;
+    background: white;
+    border: none;
+    font-size: 12px;
+    font-weight: 500;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.map-style-btn:hover {
+    background: #f5f5f5;
+}
+
+.map-style-btn.active {
+    background: #0f0f0f;
+    color: white;
+}
+
+/* Expand Button */
+.map-expand-btn {
+    position: absolute;
+    top: 12px;
+    right: 60px;
+    width: 36px;
+    height: 36px;
+    background: white;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    z-index: 10;
+}
+
+.map-expand-btn:hover {
+    background: #f5f5f5;
+    transform: scale(1.05);
+}
+
+.map-expand-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke: #333;
+}
+
+/* Actions Row */
+.map-actions-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.get-directions-btn,
+.open-google-maps-btn {
+    flex: 1;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+
+.get-directions-btn {
+    background: #0f0f0f;
+    color: white;
+}
+
+.get-directions-btn:hover:not(:disabled) {
+    background: #333;
+}
+
+.get-directions-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.open-google-maps-btn {
+    background: #f5f5f5;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+.open-google-maps-btn:hover {
+    background: #e5e5e5;
+}
+
+.get-directions-btn svg,
+.open-google-maps-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Travel Modes Panel */
+.travel-modes-panel {
+    display: none;
+    margin-top: 12px;
+    padding: 12px;
+    background: #f9f9f9;
+    border-radius: 12px;
+}
+
+.travel-modes-panel.active {
+    display: block;
+}
+
+.travel-modes-header {
+    font-size: 12px;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.travel-modes-btns {
+    display: flex;
+    gap: 8px;
+}
+
+.travel-mode-btn {
+    flex: 1;
+    padding: 10px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.travel-mode-btn span {
+    font-size: 11px;
+    color: #666;
+}
+
+.travel-mode-btn:hover {
+    border-color: #3b82f6;
+}
+
+.travel-mode-btn.active {
+    background: #3b82f6;
+    border-color: #3b82f6;
+    color: white;
+}
+
+.travel-mode-btn.active span {
+    color: white;
+}
+
+/* Directions Info */
+.directions-info {
+    display: none;
+    padding: 12px;
+    background: white;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.directions-info.active {
+    display: block;
+}
+
+.route-summary {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 14px;
+}
+
+.route-mode {
+    font-size: 24px;
+}
+
+.route-distance,
+.route-duration {
+    font-weight: 600;
+    color: #333;
+}
+
+.route-duration {
+    color: #3b82f6;
+}
+
+/* Expand Overlay */
+.map-expand-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+}
+
+.map-expand-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.expanded-map-container {
+    width: 90%;
+    max-width: 1200px;
+    height: 80vh;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transform: scale(0.9);
+    transition: transform 0.3s;
+}
+
+.map-expand-overlay.active .expanded-map-container {
+    transform: scale(1);
+}
+
+.expanded-map-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.expanded-map-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.close-expand-btn {
+    width: 36px;
+    height: 36px;
+    background: #f5f5f5;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.close-expand-btn:hover {
+    background: #e5e5e5;
+}
+
+.close-expand-btn svg {
+    width: 20px;
+    height: 20px;
+    stroke: #333;
+}
+
+.expanded-map {
+    flex: 1;
+    width: 100%;
+}
+
+.expanded-map-controls {
+    padding: 16px 20px;
+    border-top: 1px solid #eee;
+    background: #fafafa;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .property-detail-map {
+        height: 250px;
+    }
+
+    .expanded-map-container {
+        width: 95%;
+        height: 90vh;
+        border-radius: 16px;
+    }
+
+    .map-actions-row {
+        flex-direction: column;
+    }
+
+    .travel-modes-btns {
+        flex-wrap: wrap;
+    }
+
+    .travel-mode-btn {
+        flex: 0 0 calc(33.33% - 6px);
+    }
+}
+
+/* Address Input Panel (fallback when GPS denied) */
+.address-input-panel {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    right: 0;
+    margin-bottom: 10px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    padding: 16px;
+    z-index: 100;
+}
+
+.address-input-panel.active {
+    display: block;
+}
+
+.address-input-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.close-address-input {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px 8px;
+    color: #666;
+}
+
+.address-input-row {
+    display: flex;
+    gap: 8px;
+}
+
+.address-input {
+    flex: 1;
+    padding: 12px 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.address-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+}
+
+.search-address-btn {
+    padding: 12px 20px;
+    background: #0f0f0f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.address-suggestions {
+    margin-top: 12px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.address-suggestion {
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.address-suggestion:hover {
+    background: #f5f5f5;
+}
+
+.address-suggestion strong {
+    display: block;
+    font-size: 14px;
+    color: #333;
+}
+
+.address-suggestion span {
+    font-size: 12px;
+    color: #666;
+}
+
+.searching,
+.no-results,
+.error {
+    padding: 12px;
+    text-align: center;
+    color: #666;
+}
+
+.error {
+    color: #e74c3c;
+}

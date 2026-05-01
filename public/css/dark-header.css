@@ -1,0 +1,437 @@
+/* ========================================
+   DARK HEADER - PandaPay Style
+   Fixed header with dropdown, animations
+   ======================================== */
+
+/* Skip Link - Hidden by default, visible on focus */
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 0;
+    background: #0a0a0a;
+    color: #fff;
+    padding: 12px 24px;
+    z-index: 10000;
+    text-decoration: none;
+    font-family: 'Alumni Sans', sans-serif;
+    transition: top 0.2s;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* Main Header Bar */
+.dark-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: stretch;
+    height: 50px;
+    background: transparent;
+}
+
+/* Left Dark Section */
+.header-dark-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #0a0a0a;
+    padding: 0 24px;
+    min-width: 260px;
+    height: 50px;
+    border-bottom-right-radius: 12px;
+    transition: border-radius 0.1s ease;
+}
+
+/* Remove ALL border radius when menu is open so they connect seamlessly */
+.header-dark-section.active {
+    border-radius: 0 !important;
+}
+
+/* Logo */
+.header-logo {
+    font-family: 'Alumni Sans', sans-serif;
+    font-size: 25px;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.logo-icon {
+    font-size: 11px;
+    opacity: 0.6;
+}
+
+/* Hamburger Menu with expand animation */
+.hamburger-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 28px;
+    height: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    position: relative;
+}
+
+.hamburger-line {
+    width: 18px;
+    height: 2px;
+    background: #fff;
+    position: absolute;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.hamburger-line:first-child {
+    top: 10px;
+}
+
+.hamburger-line:last-child {
+    bottom: 10px;
+}
+
+/* Hamburger expands right then transforms to X */
+.header-dark-section.active .hamburger-line {
+    width: 20px;
+}
+
+.header-dark-section.active .hamburger-line:first-child {
+    transform: rotate(45deg);
+    top: 13px;
+}
+
+.header-dark-section.active .hamburger-line:last-child {
+    transform: rotate(-45deg);
+    bottom: 13px;
+}
+
+.hamburger-menu:hover .hamburger-line {
+    background: #888;
+}
+
+/* White Section */
+.header-white-section {
+    flex: 1;
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+    height: 50px;
+    background: transparent;
+}
+
+.header-welcome-wrapper {
+    overflow: hidden;
+    height: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.header-welcome {
+    font-family: 'Alumni Sans', sans-serif;
+    font-size: 25px;
+    color: #000;
+    mix-blend-mode: difference;
+    display: inline-block;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.header-welcome.ascend-out {
+    transform: translateY(-100%);
+}
+
+.header-welcome.ascend-in {
+    transform: translateY(100%);
+}
+
+.header-right-links {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.header-link {
+    font-family: 'Alumni Sans', sans-serif;
+    font-size: 30px;
+    color: #000;
+    text-decoration: none;
+    mix-blend-mode: difference;
+}
+
+.header-link:hover {
+    opacity: 0.7;
+}
+
+/* Section 5 Active - White text for header */
+.dark-header.section-5-active .header-welcome,
+.dark-header.section-5-active .header-link {
+    color: #fff !important;
+    mix-blend-mode: normal;
+}
+
+/* User Role Styling - Different colors for landlords vs tenants */
+.header-link.user-landlord {
+    color: #667eea;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 2px;
+}
+
+.header-link.user-tenant {
+    color: #10b981;
+    border-bottom: 2px solid #10b981;
+    padding-bottom: 2px;
+}
+
+/* Role Badge Styling */
+.role-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    vertical-align: middle;
+}
+
+.header-link.user-landlord .role-badge {
+    background: rgba(102, 126, 234, 0.2);
+    color: #667eea;
+}
+
+.header-link.user-tenant .role-badge {
+    background: rgba(16, 185, 129, 0.2);
+    color: #10b981;
+}
+
+/* ========================================
+   DROPDOWN MENU - Height expansion animation
+   ======================================== */
+
+.header-menu {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    width: 260px;
+    background: #0a0a0a;
+    z-index: 999;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    border-bottom-right-radius: 16px;
+}
+
+.header-menu.active {
+    max-height: 400px;
+}
+
+.header-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 24px;
+}
+
+.header-menu li {
+    margin-bottom: 10px;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition-delay: calc(var(--delay) * 0.05s + 0.1s);
+}
+
+.header-menu.active li {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.header-menu a {
+    font-family: 'Alumni Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.header-menu a:hover,
+.header-menu a.active {
+    color: #888;
+}
+
+/* Menu Footer */
+.header-menu-footer {
+    padding: 20px 24px;
+    border-top: 1px solid #222;
+}
+
+.social-icons {
+    display: flex;
+    gap: 14px;
+}
+
+.social-icons a {
+    color: #fff;
+    transition: color 0.2s;
+}
+
+.social-icons a:hover {
+    color: #888;
+}
+
+/* ========================================
+   BODY OFFSET FOR FIXED HEADER
+   ======================================== */
+
+body.has-dark-header {
+    padding-top: 50px;
+}
+
+/* ========================================
+   HR Mobile - Hidden by default, visible on mobile
+   ======================================== */
+.header-hr-mobile {
+    display: none;
+}
+
+/* ========================================
+   MOBILE: Header at BOTTOM
+   ======================================== */
+
+@media (max-width: 768px) {
+
+    /* Move header bar to bottom */
+    .dark-header {
+        top: auto;
+        bottom: 0;
+        flex-direction: row;
+    }
+
+    .header-dark-section {
+        min-width: 100%;
+        padding: 0 20px;
+        border-bottom-right-radius: 0;
+    }
+
+    .header-dark-section.active {
+        min-width: 100%;
+    }
+
+    /* White section at TOP on mobile */
+    .header-white-section {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 12px 20px 0 20px;
+        height: auto;
+        background: transparent;
+        z-index: 999;
+    }
+
+    .header-welcome {
+        font-size: 18px;
+        margin-bottom: 8px;
+    }
+
+    /* Show and style hr on mobile */
+    .header-hr-mobile {
+        display: block;
+        width: 100%;
+        border: none;
+        border-top: 2px solid #ddd;
+        margin: 0;
+    }
+
+    /* Hide right links on mobile top bar */
+    /* Show right links on mobile top bar (User Name + Badge) */
+    .header-right-links {
+        display: flex;
+        position: absolute;
+        top: 12px;
+        right: 20px;
+        gap: 8px;
+    }
+
+    .header-right-links .header-link {
+        font-size: 16px;
+        mix-blend-mode: normal;
+        border-bottom-width: 1px;
+    }
+
+    .header-right-links .role-badge {
+        font-size: 10px;
+        padding: 1px 6px;
+        margin-left: 4px;
+    }
+
+    /* Menu takes more screen space on mobile */
+    .header-menu {
+        top: auto;
+        bottom: 50px;
+        left: 0;
+        right: 0;
+        width: 100%;
+        border-radius: 0;
+        max-height: 0;
+    }
+
+    .header-menu.active {
+        max-height: calc(100vh - 100px);
+    }
+
+    /* Show logo inside menu on mobile */
+    .header-menu-logo {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 24px;
+        border-bottom: 1px solid #222;
+    }
+
+    .header-menu-logo .header-logo {
+        display: flex !important;
+    }
+
+    .mobile-close-btn {
+        display: block;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    .mobile-close-btn svg {
+        width: 24px;
+        height: 24px;
+        stroke: #fff;
+    }
+
+    /* Body offset for bottom header */
+    body.has-dark-header {
+        padding-top: 0;
+        padding-bottom: 50px;
+    }
+}
+
+/* Hide mobile-only elements on desktop */
+.header-menu-logo {
+    display: none;
+}
+
+.mobile-close-btn {
+    display: none;
+}

@@ -1,0 +1,16 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: propconnect-app
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+      - /var/www/html/vendor
+      - /var/www/html/node_modules
+      - ./storage/app/public:/var/www/html/storage/app/public
+    env_file:
+      - .env
+    restart: unless-stopped

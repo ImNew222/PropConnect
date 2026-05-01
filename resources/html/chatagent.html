@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>PropConnect | Message</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Material Symbols -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0f49bd", // Navy Blue
+                        "accent": "#C5A059", // Champagne Gold
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1a2230",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Custom Scrollbar for cleaner look */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .loading-indicator {
+            text-align: center;
+            color: #888;
+            font-size: 12px;
+            padding: 5px;
+            display: none;
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark font-display antialiased text-slate-900 dark:text-slate-100 h-[90dvh] flex flex-col overflow-hidden">
+    <!-- Top Navigation Bar -->
+    <header
+        class="flex items-center justify-between px-4 py-3 bg-surface-light/90 dark:bg-surface-dark/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 z-20 shrink-0">
+        <button onclick="window.location='./message_list.html'"
+            class="flex items-center justify-center p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-primary dark:text-white">
+            <span class="material-symbols-outlined">arrow_back_ios_new</span>
+        </button>
+        <div class="flex flex-col items-center">
+            <h1 class="text-base font-bold text-slate-900 dark:text-white leading-tight" id="chatMateName"></h1>
+            <div class="flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                <span
+                    class="text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400 font-medium">Online</span>
+            </div>
+        </div>
+
+
+        <button id="nextPageBtn"
+            class="flex items-center justify-center p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-primary dark:text-white">
+            <span class="material-symbols-outlined">star</span>
+        </button>
+
+    </header>
+    <!-- Chat Area -->
+    <main id="messages-list"
+        class="flex-1 overflow-y-auto scrollbar-hide bg-surface-light dark:bg-background-dark p-4 flex flex-col gap-6">
+        <!-- Date Separator -->
+        <!-- <div class="flex justify-center my-2">
+            <span
+                class="text-[11px] font-medium text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800/50 px-3 py-1 rounded-full">
+                Today, 9:41 AM
+            </span>
+        </div> -->
+        <div id="loading-msg" class="loading-indicator">Loading history...</div>
+        <!-- Assistant Message (Greeting) -->
+        <!-- <div class="flex items-end gap-3 group" >
+            <div class="bg-center bg-no-repeat bg-cover rounded-full w-8 h-8 shrink-0 shadow-sm border border-slate-100 dark:border-slate-700"
+                data-alt="Professional portrait of a concierge assistant smiling warmly"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuANgV8ucbJgSkPyT39-tMomNk8Min_2XDnvX_s_zsDWsuZepsJJol1OtIAHAt-f6If_MS_AMM8qlBduVC7tMyTcyn6-nIubu2A87ReaZG_SIR4HgW7z5L1Ex5pzjpVuOirpS5bW4J9RvUe-uzPdTVosILDbGj2Rga9NjA0DjqwtMCaCz5iFrsEAJhafqUyO6krJJe1EBCTQ_iB5e_qlMsCjlajkdTIXVdzEM_XnB7JGFQBxl6NKRdxJerQaild-IdKUBz595zTYiakO");'>
+            </div>
+            <div class="flex flex-col gap-1 items-start max-w-[80%]">
+                <div class="flex items-baseline gap-2 ml-1">
+                    <span class="text-slate-500 dark:text-slate-400 text-[11px] font-medium">Sarah</span>
+                </div>
+                <div
+                    class="relative bg-slate-100 dark:bg-surface-dark px-4 py-3 rounded-2xl rounded-bl-sm text-slate-800 dark:text-slate-200 text-[15px] leading-relaxed shadow-sm">
+                    Good morning, Alexander. Welcome back. How can I assist with your property search today?
+                </div>
+                <span class="text-[10px] text-slate-400 ml-1 opacity-0 group-hover:opacity-100 transition-opacity">09:41
+                    AM</span>
+            </div>
+        </div> -->
+        <!-- User Message -->
+        <!-- <div class="flex items-end gap-3 justify-end group">
+            <div class="flex flex-col gap-1 items-end max-w-[80%]">
+                <div
+                    class="relative bg-primary px-4 py-3 rounded-2xl rounded-br-sm text-white text-[15px] leading-relaxed shadow-md shadow-primary/20">
+                    I'm interested in waterfront villas in Miami. Do you have any new listings that match my portfolio
+                    preferences?
+                </div>
+                <span class="text-[10px] text-slate-400 mr-1 opacity-0 group-hover:opacity-100 transition-opacity">09:43
+                    AM</span>
+            </div>
+            
+            <div class="bg-center bg-no-repeat bg-cover rounded-full w-8 h-8 shrink-0 shadow-sm border border-slate-100 dark:border-slate-700"
+                data-alt="Portrait of a male user in business attire"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuARlCFIEmo_AkXm5QcGXShATiKflujxFDB_o6xeN2LhVkJR7RW0oR2-nTNdIyr3gc6hx2XF2XdhGEUOoxJzU530YPwjfWLzfAquFbT4MuUw0tEssa0s_HiwPVwMr4t_N7YtShVeZ3JmVePpHnW6RiMsLk3rD_TVMvUWm-_tVuoNVbc1nyPchuuaJS3ZyrFg9stU0sY8Xu32RKcePV0dAlX-BRRMtZfppMG8nwSx_zgtceaM5AMT5dcszq1ZVrcBdrXweghC5w9xsReW");'>
+            </div>
+        </div> -->
+        <!-- Assistant Typing Indicator -->
+        <!-- Ideally shown briefly, but for static design we can show the result -->
+        <!-- Assistant Message (Rich Response with Card) -->
+        <!-- <div class="flex items-end gap-3 group">
+            <div class="bg-center bg-no-repeat bg-cover rounded-full w-8 h-8 shrink-0 shadow-sm border border-slate-100 dark:border-slate-700"
+                data-alt="Professional portrait of a concierge assistant smiling warmly"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBL83mj93FgWe6-f5q2xiH-yaSlZGJq0wBf1Q1nwKSikavOhIzAw2FKCaRhAV0ETOQGXFKUTzCdKsAWRjN3ICBwXBU_TIkkcWcmlF_ZWLThKp5pZ_PNLjRWlc2uSpf8VM4dljIVnwwJVsWFNtFO5HZo0MNE_MjZzKMjX4UlkZkqbsWpWHgiUqFXrz_aj6gzo8oMc-6j9jRidmu2ekU9N8-eDeoVzSiXxMGKpLoKasbtwFklO5i-JOfXFLH8JsZD0P1y7hKCkVj4mv9A");'>
+            </div>
+            <div class="flex flex-col gap-1 items-start max-w-[85%] sm:max-w-[380px]">
+                <div class="flex items-baseline gap-2 ml-1">
+                    <span class="text-slate-500 dark:text-slate-400 text-[11px] font-medium">Sarah</span>
+                </div>
+                
+                <div
+                    class="bg-slate-100 dark:bg-surface-dark px-4 py-3 rounded-2xl rounded-bl-sm text-slate-800 dark:text-slate-200 text-[15px] leading-relaxed shadow-sm mb-1">
+                    Certainly. We just listed this exquisite property on Ocean Drive. It features a private dock and
+                    floor-to-ceiling windows.
+                </div>
+                
+                <div
+                    class="w-full bg-white dark:bg-surface-dark rounded-xl overflow-hidden shadow-lg border border-slate-100 dark:border-slate-800 mt-1">
+                    <div class="relative h-48 w-full">
+                        <div class="absolute inset-0 bg-center bg-cover bg-no-repeat"
+                            data-alt="Modern luxury villa with pool at sunset overlooking the ocean"
+                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBQ8dCg-2T5W0RJIG7ER04uJK8ue2NgGLHWtfoVD9eRw8KgpTUCSlhnH2Mswl7CVIrFildlLKJWw8Sb9jtDyIbEDTAzOZAL1XpFUYpbl3Yq5iS2HhxcgENWSlVfWQAxaaHLrNgfWNvnkL1NB9T5NnCgxuhVqL9cLTyBABVh21Myp3uEYU1Jlamx_ceqxFK5qNQhBAR-u6beBr3U1oJKJBQs6_frkYpUIkDi4NwAZf-mjCojTb38i0BCRvGGOSUH7f5fpi-ftOMfTv0V");'>
+                        </div>
+                        <div
+                            class="absolute top-3 left-3 bg-white/90 dark:bg-black/80 backdrop-blur-sm px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider text-primary dark:text-white shadow-sm">
+                            New Listing
+                        </div>
+                        <button
+                            class="absolute top-3 right-3 p-1.5 rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-md text-white transition-colors">
+                            <span class="material-symbols-outlined filled text-[20px]">favorite</span>
+                        </button>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h3 class="text-slate-900 dark:text-white font-bold text-lg leading-tight">$12,500,000
+                                </h3>
+                                <p class="text-slate-500 dark:text-slate-400 text-xs mt-0.5">Ocean Drive, Miami Beach
+                                </p>
+                            </div>
+                            <div class="flex items-center gap-1 text-accent">
+                                <span class="material-symbols-outlined filled text-[16px]">star</span>
+                                <span class="text-xs font-bold text-slate-900 dark:text-white">4.9</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 text-slate-600 dark:text-slate-400 text-xs mb-4">
+                            <div class="flex items-center gap-1">
+                                <span class="material-symbols-outlined text-[16px]">bed</span>
+                                <span>5 Beds</span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <span class="material-symbols-outlined text-[16px]">bathtub</span>
+                                <span>6 Baths</span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <span class="material-symbols-outlined text-[16px]">square_foot</span>
+                                <span>6,200 sqft</span>
+                            </div>
+                        </div>
+                        <button
+                            class="w-full py-2.5 rounded-lg bg-primary hover:bg-blue-700 active:bg-blue-800 text-white text-sm font-semibold transition-colors flex items-center justify-center gap-2 shadow-sm">
+                            <span>View Details</span>
+                            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
+                <span class="text-[10px] text-slate-400 ml-1 opacity-0 group-hover:opacity-100 transition-opacity">Just
+                    now</span>
+            </div>
+        </div> -->
+        <!-- Extra space at bottom to ensure content isn't hidden behind input -->
+        <div class="h-4"></div>
+    </main>
+    <!-- Composer / Input Area -->
+    <footer
+        class="bg-white dark:bg-surface-dark border-t border-slate-100 dark:border-slate-800 p-4 shrink-0 pb-8 sm:pb-4">
+        <div class="flex items-end gap-3 max-w-screen-xl mx-auto">
+            <!-- Attachment Button -->
+            <button aria-label="Add attachment"
+                class="shrink-0 p-3 rounded-full text-slate-400 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                <span class="material-symbols-outlined text-[24px]">add_circle</span>
+            </button>
+            <!-- Input Field -->
+            <div
+                class="flex-1 bg-background-light dark:bg-background-dark rounded-2xl flex items-center px-4 py-3 min-h-[48px] border border-transparent focus-within:border-primary/30 transition-colors">
+                <input id="msg-input"
+                    class="w-full bg-transparent border-none p-0 text-slate-900 dark:text-white placeholder-slate-400 focus:ring-0 text-[15px]"
+                    placeholder="Message the concierge..." type="text" value="" />
+                <div class="flex items-center gap-3 pl-2 border-l border-slate-200 dark:border-slate-700 ml-2">
+                    <button aria-label="Camera"
+                        class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
+                        <span class="material-symbols-outlined text-[20px]">photo_camera</span>
+                    </button>
+                </div>
+            </div>
+            <!-- Send Button -->
+            <button aria-label="Send message" id="send-btn"
+                class="shrink-0 size-12 rounded-full bg-primary hover:bg-blue-700 text-white shadow-lg shadow-primary/30 flex items-center justify-center transition-transform active:scale-95">
+                <span class="material-symbols-outlined filled text-[20px] ml-1">send</span>
+            </button>
+        </div>
+    </footer>
+</body>
+
+
+<script>
+
+</script>
+<script type="module">
+    // 1. Import Firebase
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import {
+        getDatabase,
+        ref,
+        push,
+        query,
+        limitToLast,
+        onChildAdded,
+        get,
+        orderByKey,
+        endBefore,
+        startAfter,
+        remove,
+        limitToFirst
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+
+
+    let currentUID;
+
+
+
+    // 2. Your Firebase Configuration (set these values from your Firebase Console)
+    const firebaseConfig = {
+        apiKey: "YOUR_FIREBASE_API_KEY",
+        authDomain: "YOUR_PROJECT.firebaseapp.com",
+        databaseURL: "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
+        projectId: "YOUR_PROJECT_ID",
+        storageBucket: "YOUR_PROJECT.firebasestorage.app",
+        messagingSenderId: "YOUR_SENDER_ID",
+        appId: "YOUR_APP_ID"
+    };
+
+    // 3. Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    let targetUID;
+
+    // --- AUTH STATE LISTENER ---
+
+    // Config
+
+
+    // const ROOM_ID = "room1";
+    // const ROOM_ID = localStorage.targetMessageRoom;
+    const PAGE_SIZE = 20;
+    let messagesRef;
+
+    const messageRef1 = ref(db, `rooms/messages`)
+
+
+
+    // UI Elements
+    const listEl = document.getElementById('messages-list');
+    const inputEl = document.getElementById('msg-input');
+    const sendBtn = document.getElementById('send-btn');
+    const loaderEl = document.getElementById('loading-msg');
+
+    // State
+    let oldestKey = null; // Tracks the top-most message key for pagination
+    let isLoading = false;
+    let isAllHistoryLoaded = false;
+    let fromDeleteFunction = false;
+
+    // ---------------------------------------------------------
+    // 2. LISTEN FOR NEW MESSAGES (AND INITIAL 20)
+    // ---------------------------------------------------------
+
+
+    let recentQuery;
+
+    recentQuery = query(messageRef1, limitToLast(PAGE_SIZE));
+
+    messagesRef = messageRef1;
+
+
+
+
+    onChildAdded(recentQuery, (snapshot) => {
+        const msg = snapshot.val();
+        const key = snapshot.key;
+
+        // If this message is already in DOM (from pagination), skip it
+        if (document.getElementById(key)) return;
+
+        // Append to bottom
+        if (fromDeleteFunction) {
+            renderMessage(key, msg.text, true, msg.senderID, msg.timestamp);
+        } else {
+            renderMessage(key, msg.text, false, msg.senderID, msg.timestamp);
+        }
+        fromDeleteFunction = false;
+
+        // Track the oldest key for our first pagination cursor
+        // (Logic: If we have no oldestKey yet, the first one that arrives is the oldest)
+        if (!oldestKey) oldestKey = key;
+
+        // Auto-scroll to bottom on new message
+        listEl.scrollTop = listEl.scrollHeight;
+
+        console.log("New message added with key:", key);
+    });
+
+
+
+    // // Input strings
+    // const string1 = "6GKyhHiTr5RiLvS0pRD2eo8hgvB3";
+    // const string2 = "Te3DKu7kvBV1Ok9ZWjN1SpQb7uc2";
+
+    // // Run the function
+    // const result = compareFirstChar(string1, string2);
+    // console.log("-".repeat(30));
+    // console.log(result);
+
+
+
+
+
+
+
+
+    // ---------------------------------------------------------
+    // 3. FETCH OLDER MESSAGES (PAGINATION)
+    // ---------------------------------------------------------
+
+    async function loadMoreMessages() {
+        if (isLoading || isAllHistoryLoaded || !oldestKey) return;
+
+        isLoading = true;
+        loaderEl.style.display = 'block';
+
+        // Save current scroll height to restore position later
+        const currentHeight = listEl.scrollHeight;
+
+        // Query: Give me 20 messages that end BEFORE the oldest one I currently have
+        const oldQuery = query(
+            messagesRef,
+            orderByKey(),
+            endBefore(oldestKey),
+            limitToLast(PAGE_SIZE)
+        );
+
+        try {
+            const snapshot = await get(oldQuery);
+
+            if (!snapshot.exists()) {
+                isAllHistoryLoaded = true;
+                loaderEl.textContent = "Start of conversation";
+                return;
+            }
+
+            const updates = [];
+            snapshot.forEach(child => {
+                updates.push({ key: child.key, ...child.val() });
+            });
+
+            // If we got data, the first item in this new batch becomes the new "oldestKey"
+            if (updates.length > 0) {
+                oldestKey = updates[0].key;
+            }
+
+            // Render them at the TOP (reverse order because forEach gives oldest first)
+            // We iterate normally but use prepend in renderMessage
+            updates.reverse().forEach(msg => {
+                renderMessage(msg.key, msg.text, true, msg.senderID, msg.timestamp); // true = prepend
+            });
+
+            // RESTORE SCROLL POSITION
+            // The scroll moved to 0 because we added items. We need to push it back down 
+            // by the amount of height we just added.
+            const newHeight = listEl.scrollHeight;
+            listEl.scrollTop = newHeight - currentHeight;
+
+        } catch (error) {
+            console.error("Error loading history:", error);
+        } finally {
+            isLoading = false;
+            if (!isAllHistoryLoaded) loaderEl.style.display = 'none';
+        }
+    }
+
+    // ---------------------------------------------------------
+    // 4. SCROLL DETECTION
+    // ---------------------------------------------------------
+    listEl.addEventListener('scroll', () => {
+        // If scrolled to top (scrollTop is 0)
+        if (listEl.scrollTop === 0) {
+            loadMoreMessages();
+        }
+    });
+
+    // ---------------------------------------------------------
+    // 5. HELPER FUNCTIONS
+    // ---------------------------------------------------------
+
+
+
+    function renderMessage(id, text, prepend, senderID, timestamp) {
+        const div = document.createElement('div');
+        div.className = 'message';
+        div.id = id;
+        div.textContent = text;
+
+        // 1. Create a Date object
+        const date = new Date(timestamp);
+
+        // 2. Convert to a readable string (uses your local time zone)
+        console.log(date.toLocaleString());
+
+
+        if (senderID === "agent") {
+            div.className = "flex items-end gap-3 justify-end group";
+            div.innerHTML = `
+                <div class="flex flex-col gap-1 items-end max-w-[80%]">
+                    <div
+                        class="relative bg-primary px-4 py-3 rounded-2xl rounded-br-sm text-white text-[15px] leading-relaxed shadow-md shadow-primary/20">
+                        ${text}
+                    </div>
+                    <span class="text-[10px] text-slate-400 mr-1 opacity-75 group-hover:opacity-100 transition-opacity">${date.toLocaleTimeString()}</span>
+                </div>
+                <!-- User Avatar (Optional/Hidden for cleaner look often, but included as per component spec) -->
+                <div class="bg-center bg-no-repeat bg-cover rounded-full w-8 h-8 shrink-0 shadow-sm border border-slate-100 dark:border-slate-700"
+                    data-alt="Portrait of a male user in business attire"
+                    style='background-image: url("https://www.svgrepo.com/show/527946/user-circle.svg");'>
+                </div>
+            `;
+        } else {
+
+            div.className = "flex items-end gap-3 group";
+            div.innerHTML = `
+                <div class="bg-center bg-no-repeat bg-cover rounded-full w-8 h-8 shrink-0 shadow-sm border border-slate-100 dark:border-slate-700"
+                    data-alt="Professional portrait of a concierge assistant smiling warmly"
+                    style='background-image: url("https://www.svgrepo.com/show/527946/user-circle.svg");'>
+                </div>
+                <div class="flex flex-col gap-1 items-start max-w-[80%]">
+                    <div class="flex items-baseline gap-2 ml-1">
+                        <span class="text-slate-500 dark:text-slate-400 text-[11px] font-medium">Customer</span>
+                    </div>
+                    <div
+                        class="relative bg-slate-100 dark:bg-surface-dark px-4 py-3 rounded-2xl rounded-bl-sm text-slate-800 dark:text-slate-200 text-[15px] leading-relaxed shadow-sm">
+                        ${text}
+                    </div>
+                    <span class="text-[10px] text-slate-400 ml-1 opacity-0 group-hover:opacity-100 transition-opacity">${date.toLocaleTimeString()}</span>
+                </div>
+        `;
+        }
+
+
+
+        if (prepend) {
+            // Add to top (after the loader)
+            // insertBefore the first message currently in the list
+            const firstMsg = listEl.querySelector('.message');
+            if (firstMsg) {
+                listEl.insertBefore(div, firstMsg);
+            } else {
+                listEl.appendChild(div);
+            }
+        } else {
+            // Add to bottom
+            listEl.appendChild(div);
+        }
+
+
+    }
+
+    // Send Message Logic
+    sendBtn.addEventListener('click', () => {
+        if (!inputEl.value.trim()) return;
+        push(messagesRef, {
+            text: inputEl.value,
+            senderID: "agent",
+            timestamp: Date.now()
+        });
+        inputEl.value = '';
+        inputEl.focus();
+    });
+
+    inputEl.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            sendBtn.click();
+        }
+    });
+
+    window.onload = function () {
+        document.getElementById('chatMateName').innerText = "Customer";
+    };
+
+
+
+    // function sendMessage(actualMessage){
+    //     let message_holder = document.getElementById('messages-list');
+
+
+    //     let createMessage = document.createElement('div');
+    //     createMessage.className = "flex items-end gap-3 justify-end group";
+    //     createMessage.innerHTML = `
+    //         <div class="flex flex-col gap-1 items-end max-w-[80%]">
+    //             <div
+    //                 class="relative bg-primary px-4 py-3 rounded-2xl rounded-br-sm text-white text-[15px] leading-relaxed shadow-md shadow-primary/20">
+    //                 ${actualMessage}
+    //             </div>
+    //             <span class="text-[10px] text-slate-400 mr-1 opacity-0 group-hover:opacity-100 transition-opacity">09:43
+    //                 AM</span>
+    //         </div>
+    //         <!-- User Avatar (Optional/Hidden for cleaner look often, but included as per component spec) -->
+    //         <div class="bg-center bg-no-repeat bg-cover rounded-full w-8 h-8 shrink-0 shadow-sm border border-slate-100 dark:border-slate-700"
+    //             data-alt="Portrait of a male user in business attire"
+    //             style='background-image: url(${localStorage.propConnectPic})'>
+    //         </div>
+    //     `;
+
+
+    //     message_holder.appendChild(createMessage);
+
+
+    //     message_holder.scrollTop = message_holder.scrollHeight;
+    // }
+
+
+    // function chatMateMessage(actualMessage){
+
+    //     let message_holder = document.getElementById('messages-list');
+    //     let createMessage = document.createElement('div');
+
+    //     createMessage.className = "flex items-end gap-3 group";
+    //     createMessage.innerHTML = `
+    //         <div class="bg-center bg-no-repeat bg-cover rounded-full w-8 h-8 shrink-0 shadow-sm border border-slate-100 dark:border-slate-700"
+    //             data-alt="Professional portrait of a concierge assistant smiling warmly"
+    //             style='background-image: url("${localStorage.propConnectChatMatePic}");'>
+    //         </div>
+    //         <div class="flex flex-col gap-1 items-start max-w-[80%]">
+    //             <div class="flex items-baseline gap-2 ml-1">
+    //                 <span class="text-slate-500 dark:text-slate-400 text-[11px] font-medium">Sarah</span>
+    //             </div>
+    //             <div
+    //                 class="relative bg-slate-100 dark:bg-surface-dark px-4 py-3 rounded-2xl rounded-bl-sm text-slate-800 dark:text-slate-200 text-[15px] leading-relaxed shadow-sm">
+    //                 ${actualMessage}
+    //             </div>
+    //             <span class="text-[10px] text-slate-400 ml-1 opacity-0 group-hover:opacity-100 transition-opacity">09:41
+    //                 AM</span>
+    //         </div>
+    //     `;
+
+    //     message_holder.appendChild(createMessage);
+    //     message_holder.scrollTop = message_holder.scrollHeight;
+
+
+    // }
+
+
+    // document.getElementById('actual_message').addEventListener('keypress', (e) => {
+    //     if (e.key === 'Enter') sendMessage();
+    // });
+
+
+    // document.getElementById('message_holder').addEventListener('scroll', () => {
+    //     if (document.getElementById('message_holder').scrollTop === 0) {
+    //         console.log("Load more messages here...");
+    //     }
+    // });
+
+    let nextPageBtn = document.getElementById('nextPageBtn');
+
+    nextPageBtn.addEventListener('click', nextPage);
+
+
+</script>
+
+</html>

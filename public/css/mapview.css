@@ -1,0 +1,395 @@
+/* ========================================
+   MAP VIEW - Split Screen Layout
+   ======================================== */
+
+/* --- Container --- */
+.mapview-container {
+    display: none;
+    /* Hidden by default, shown when map view is active */
+    width: 100%;
+    height: calc(100vh - 180px);
+    /* Full height minus header/filters */
+    min-height: 600px;
+}
+
+.mapview-container.active {
+    display: flex;
+    gap: 0;
+}
+
+/* --- Left Panel: Map --- */
+.mapview-map {
+    flex: 1;
+    position: relative;
+    min-width: 0;
+}
+
+.mapview-map #mapviewMapbox {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+}
+
+/* --- Right Panel: Property Cards --- */
+.mapview-cards {
+    width: 480px;
+    height: 100%;
+    overflow-y: auto;
+    background: #f8f9fa;
+    border-left: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+}
+
+.mapview-cards-header {
+    padding: 15px 20px;
+    background: #fff;
+    border-bottom: 1px solid #e0e0e0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.mapview-cards-header h3 {
+    font-family: 'Alumni Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.mapview-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    padding: 15px;
+    flex: 1;
+}
+
+/* --- Property Card (Compact Version) --- */
+.mapview-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.mapview-card:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+}
+
+.mapview-card.highlighted {
+    box-shadow: 0 0 0 3px #2B67F6, 0 4px 15px rgba(43, 103, 246, 0.3);
+}
+
+.mapview-card-image {
+    width: 100%;
+    height: 120px;
+    background: #ddd;
+    position: relative;
+}
+
+.mapview-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.mapview-card-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: #2B67F6;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.mapview-card-favorite {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 28px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.mapview-card-favorite svg {
+    width: 14px;
+    height: 14px;
+    stroke: #666;
+}
+
+.mapview-card-content {
+    padding: 12px;
+}
+
+.mapview-card-price {
+    font-family: 'Alumni Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 4px;
+}
+
+.mapview-card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mapview-card-location {
+    font-size: 12px;
+    color: #888;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mapview-card-amenities {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+    font-size: 12px;
+    color: #666;
+}
+
+.mapview-card-amenities span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.mapview-card-amenities img {
+    width: 14px;
+    height: 14px;
+    opacity: 0.6;
+}
+
+/* --- Pagination --- */
+.mapview-pagination {
+    padding: 15px 20px;
+    background: #fff;
+    border-top: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mapview-pagination-btn {
+    padding: 8px 16px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.mapview-pagination-btn:hover:not(:disabled) {
+    background: #f5f5f5;
+    border-color: #ccc;
+}
+
+.mapview-pagination-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.mapview-pagination-info {
+    font-size: 14px;
+    color: #666;
+}
+
+/* --- Mapbox Custom Markers --- */
+.mapview-marker {
+    background: #fff;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-family: 'Alumni Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #222;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.mapview-marker:hover {
+    background: #2B67F6;
+    color: #fff;
+    transform: scale(1.1);
+}
+
+.mapview-marker.active {
+    background: #2B67F6;
+    color: #fff;
+}
+
+/* --- Mapbox Popup --- */
+.mapview-popup .mapboxgl-popup-content {
+    padding: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    width: 260px;
+}
+
+.mapview-popup .mapboxgl-popup-close-button {
+    font-size: 18px;
+    padding: 8px;
+    color: #fff;
+    z-index: 10;
+}
+
+.mapview-popup-image {
+    width: 100%;
+    height: 140px;
+    background: #ddd;
+    position: relative;
+}
+
+.mapview-popup-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.mapview-popup-content {
+    padding: 12px;
+}
+
+.mapview-popup-price {
+    font-family: 'Alumni Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 4px;
+}
+
+.mapview-popup-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.mapview-popup-location {
+    font-size: 12px;
+    color: #888;
+}
+
+.mapview-popup-amenities {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+    font-size: 12px;
+    color: #666;
+}
+
+.mapview-popup-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background: #2B67F6;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+}
+
+.mapview-popup-btn:hover {
+    background: #1a56db;
+}
+
+/* ========================================
+   RESPONSIVE - Mobile (Stacked)
+   ======================================== */
+
+@media (max-width: 1024px) {
+    .mapview-cards {
+        width: 380px;
+    }
+}
+
+@media (max-width: 768px) {
+    .mapview-container.active {
+        flex-direction: column;
+        height: auto;
+        min-height: auto;
+    }
+
+    .mapview-map {
+        width: 100%;
+        height: 350px;
+        flex: none;
+    }
+
+    .mapview-cards {
+        width: 100%;
+        height: auto;
+        max-height: none;
+        border-left: none;
+        border-top: 1px solid #e0e0e0;
+    }
+
+    .mapview-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 500px) {
+    .mapview-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .mapview-card-image {
+        height: 100px;
+    }
+
+    .mapview-card-content {
+        padding: 8px;
+    }
+
+    .mapview-card-price {
+        font-size: 15px;
+    }
+
+    .mapview-card-title {
+        font-size: 12px;
+    }
+
+    .mapview-card-location {
+        font-size: 10px;
+    }
+
+    .mapview-card-amenities {
+        display: none;
+        /* Hide on very small screens to save space */
+    }
+}

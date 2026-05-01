@@ -1,0 +1,39 @@
+/* ========================================
+   GSAP ANIMATIONS
+   Text reveal and fade effects
+   ======================================== */
+
+/* Text Ascend Animation (Slide up visible) */
+.reveal-text {
+    overflow: hidden;
+    display: inline-block;
+}
+
+/* Special case for h1 to keep block display */
+h1.reveal-text {
+    display: block;
+}
+
+.ascend-inner {
+    display: inline-block;
+}
+
+/* Keep gradient on ascend-inner for h1 */
+h1.reveal-text .ascend-inner {
+    background: linear-gradient(180deg, #fdfdfd 0%, #0f0f0f 50%, #242424 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Fade Up Animation Class */
+.fade-up {
+    opacity: 0;
+}
+
+/* Hero text on top of reveal box */
+.reveal-text h1,
+.reveal-text a {
+    position: relative;
+    z-index: 2;
+}

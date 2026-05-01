@@ -1,0 +1,911 @@
+/* ========================================
+   PROPERTY LISTING CARDS
+   ======================================== */
+
+/* Results Header */
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 25px;
+    padding: 15px 0;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.results-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.results-count {
+    font-family: 'Alumni Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    white-space: nowrap;
+}
+
+/* Property Search Filter */
+.property-search-filter {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f5f5f5;
+    padding: 8px 14px;
+    border-radius: 20px;
+    min-width: 200px;
+    transition: all 0.2s;
+}
+
+.property-search-filter:focus-within {
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.property-search-filter svg {
+    width: 16px;
+    height: 16px;
+    stroke: #888;
+    flex-shrink: 0;
+}
+
+.property-search-filter input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-family: 'Alumni Sans', sans-serif;
+    font-size: 14px;
+    outline: none;
+    min-width: 120px;
+}
+
+.property-search-filter input::placeholder {
+    color: #aaa;
+}
+
+.clear-search-btn {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #888;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+.clear-search-btn:hover {
+    color: #333;
+}
+
+.location-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    margin-top: 8px;
+    z-index: 100;
+    display: none;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.location-results.show {
+    display: block;
+}
+
+.location-item {
+    padding: 10px 14px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.2s;
+}
+
+.location-item:hover {
+    background: #f8f8f8;
+}
+
+.location-item:last-child {
+    border-bottom: none;
+}
+
+.location-item-name {
+    font-weight: 600;
+    font-size: 13px;
+    color: #333;
+}
+
+.location-item-address {
+    font-size: 11px;
+    color: #888;
+    margin-top: 2px;
+}
+
+.sort-dropdown {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    position: relative;
+}
+
+.sort-label {
+    font-size: 14px;
+    color: #666;
+}
+
+.sort-dropdown select {
+    appearance: none;
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    cursor: pointer;
+    padding-right: 20px;
+}
+
+.sort-dropdown svg {
+    width: 16px;
+    height: 16px;
+    stroke: #333;
+    position: absolute;
+    right: 0;
+    pointer-events: none;
+}
+
+/* Listings Container */
+.property-listings {
+    margin-top: 20px;
+}
+
+/* Search Highlight Effect */
+.property-card.search-highlight,
+.grid-card.search-highlight {
+    border: 2px solid #4CAF50 !important;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.15) !important;
+}
+
+
+/* List View Card */
+.property-card {
+    display: flex;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    /* Scroll Reveal Animation - initial state (hidden) */
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.2s ease;
+}
+
+/* Revealed state */
+.property-card.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.property-card:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Property Image */
+.property-image {
+    width: 280px;
+    min-height: 220px;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.property-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.property-image .placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #e0e0e0 0%, #c0c0c0 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+}
+
+/* Favorite Button */
+.favorite-btn {
+    display: none;
+    /* User requested to remove heart emoji */
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.favorite-btn:hover {
+    background: #fff;
+    transform: scale(1.1);
+}
+
+.favorite-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke: #666;
+    fill: none;
+}
+
+.favorite-btn.active svg {
+    fill: #e74c3c;
+    stroke: #e74c3c;
+}
+
+/* Image Swiper */
+.image-swiper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.swiper-slides {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.swiper-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #e0e0e0 0%, #c0c0c0 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.swiper-slide.active {
+    opacity: 1;
+    z-index: 1;
+}
+
+.swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.swiper-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.property-image:hover .swiper-nav {
+    opacity: 1;
+}
+
+.swiper-nav svg {
+    width: 16px;
+    height: 16px;
+    stroke: #333;
+}
+
+.swiper-prev {
+    left: 10px;
+}
+
+.swiper-next {
+    right: 10px;
+}
+
+.swiper-dots {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+    z-index: 2;
+}
+
+.swiper-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.swiper-dot.active {
+    background: #fff;
+    width: 18px;
+    border-radius: 3px;
+}
+
+/* Mini Map Image */
+.mini-map-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.mapbox-container {
+    flex: 1;
+    background: #f0f4f8;
+    border-radius: 10px;
+    overflow: hidden;
+    min-height: 120px;
+}
+
+/* Property Tags (Pet-friendly, Furnished, etc.) */
+.property-tags {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.property-tag {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 16x;
+    font-weight: 500;
+}
+
+.property-tag.pet-friendly {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.property-tag.furnished {
+    background: #e3f2fd;
+    color: #1565c0;
+}
+
+.property-tag.verified {
+    background: #fff3e0;
+    color: #ef6c00;
+}
+
+.property-tag svg {
+    width: 12px;
+    height: 12px;
+}
+
+/* Mapbox Placeholder */
+.mapbox-container {
+    flex: 1;
+    background: #f0f4f8;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100px;
+    padding: 10px;
+}
+
+.mapbox-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: #888;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.mapbox-id {
+    font-size: 12px;
+    font-weight: 700;
+    color: #333;
+    background: #fff;
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+/* Property Details */
+.property-details {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.property-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 5px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.property-title {
+    font-family: 'Alumni Sans', sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    color: #222;
+    margin: 0;
+}
+
+.property-header .property-price {
+    font-family: 'Alumni Sans', sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: #222;
+    white-space: nowrap;
+}
+
+.property-badge {
+    padding: 3px 8px;
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 24px;
+    font-weight: 600;
+    color: #666;
+    text-transform: uppercase;
+}
+
+.property-type {
+    font-size: 20px;
+    color: #888;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Amenities */
+.property-amenities {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.amenity {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #555;
+}
+
+.amenity svg {
+    width: 16px;
+    height: 16px;
+    stroke: #666;
+}
+
+/* Landlord Info */
+.landlord-info {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+    padding: 8px 12px;
+    background: #ffffff;
+    border-radius: 8px;
+}
+
+.landlord-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #ddd;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.landlord-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.landlord-details {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.landlord-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.landlord-phone {
+    font-size: 18px;
+    color: #888;
+}
+
+.landlord-contact {
+    display: flex;
+    gap: 4px;
+    margin-left: 4px;
+}
+
+.contact-btn {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    background: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.contact-btn:hover {
+    border-color: #333;
+}
+
+.contact-btn svg {
+    width: 14px;
+    height: 14px;
+    stroke: #555;
+}
+
+/* Description */
+.property-description {
+    border-left: 3px solid #333;
+    padding-left: 12px;
+    margin-top: auto;
+}
+
+.property-description h5 {
+    font-size: 22px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 5px 0;
+}
+
+.property-description p {
+    font-size: 18px;
+    color: #666;
+    line-height: 1.5;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Property Side (Price & Map) */
+.property-side {
+    width: 400px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid #eee;
+    flex-shrink: 0;
+}
+
+.property-price {
+    font-family: 'Alumni Sans', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 15px;
+}
+
+/* Mini Map */
+.mini-map {
+    flex: 1;
+    background: #e8f4f8;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    min-height: 100px;
+}
+
+.mini-map .map-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, #d4e8ed 0%, #a8d4e0 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.map-pin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.map-pin .pin-label {
+    background: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.map-pin svg {
+    width: 24px;
+    height: 24px;
+    fill: #e74c3c;
+}
+
+.location-info {
+    padding: 10px;
+    background: #fff;
+}
+
+.location-distance {
+    font-size: 22px;
+    color: #3498db;
+    margin-bottom: 3px;
+}
+
+.location-address {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    line-height: 1.3;
+}
+
+.rent-link {
+    text-align: right;
+    margin-top: 10px;
+}
+
+.rent-link a {
+    font-size: 13px;
+    color: #333;
+    text-decoration: underline;
+}
+
+/* Rent CTA Button */
+.rent-cta {
+    display: block;
+    text-align: center;
+    padding: 12px 20px;
+    background: #2B67F6;
+    color: #fff;
+    font-family: 'Alumni Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 8px;
+    margin-top: 15px;
+    transition: all 0.2s ease;
+    box-shadow: 0px 4px 0px 0px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 0px 4px 0px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 4px 0px 0px rgba(0, 0, 0, 0.75);
+}
+
+.rent-cta:hover {
+    background: #111;
+}
+
+/* Listing Posted Date */
+.listing-date {
+    font-size: 18px;
+    color: #999;
+    margin-top: 8px;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 30px;
+    padding: 20px 0;
+}
+
+.pagination-btn {
+    padding: 10px 20px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.pagination-btn:hover {
+    border-color: #333;
+    color: #333;
+}
+
+.pagination-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pagination-info {
+    font-size: 14px;
+    color: #888;
+}
+
+/* ========================================
+   PROPERTY CARD RESPONSIVE
+   ======================================== */
+
+@media (max-width: 1200px) {
+
+    .property-side {
+        width: 200px;
+    }
+
+}
+
+@media (max-width: 992px) {
+    .property-card {
+        flex-wrap: wrap;
+    }
+
+    .property-image {
+        width: 100%;
+        height: 200px;
+    }
+
+    .property-side {
+        width: 100%;
+        flex-direction: row;
+        align-items: center;
+        gap: 20px;
+        border-left: none;
+        border-top: 1px solid #eee;
+    }
+
+    .property-price {
+        margin-bottom: 0;
+    }
+
+    .mini-map {
+        width: 150px;
+        min-height: 80px;
+    }
+}
+
+@media (max-width: 768px) {
+    .property-amenities {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .amenity {
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+
+    .property-side {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .mini-map {
+        width: 100%;
+    }
+
+    .mapbox-container {
+        width: 100%;
+        min-height: 300px;
+    }
+
+    .property-image {
+        min-height: 350px
+    }
+}
+
+@media (max-width: 500px) {
+    .property-card {
+        border-radius: 12px;
+    }
+
+    .property-details {
+        padding: 15px;
+    }
+
+    .property-title {
+        font-size: 24px;
+    }
+
+    .property-header .property-price {
+        font-size: 20px;
+    }
+
+    .landlord-info {
+        padding: 6px 10px;
+        gap: 6px;
+    }
+
+    .landlord-avatar {
+        width: 40px;
+        height: 40px;
+    }
+
+    .landlord-name {
+        font-size: 16px;
+    }
+
+    .landlord-phone {
+        font-size: 16px;
+    }
+
+    .contact-btn {
+        width: 30px;
+        height: 30px;
+    }
+
+    .contact-btn svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .mapbox-container {
+        width: 100%;
+        min-height: 300px;
+    }
+
+    .property-image {
+        min-height: 350px
+    }
+
+}
